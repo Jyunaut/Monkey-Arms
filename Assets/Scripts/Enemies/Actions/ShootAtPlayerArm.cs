@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Shoot At Arm", menuName = "Enemy Action Library/Shoot At Arm")]
     public class ShootAtPlayerArm : Action
     {
         public enum ArmTarget { Left, Right }

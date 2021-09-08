@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Move To Position", menuName = "Enemy Action Library/Move To Position")]
     public class MoveToPosition : Action
     {
         [field: SerializeField] public Vector2 TargetPosition { get; set; }

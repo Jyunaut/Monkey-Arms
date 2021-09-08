@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Move To Player", menuName = "Enemy Action Library/Move To Player")]
     public class MoveToPlayer : Action
     {
         public enum Target { Body, LeftArm, RightArm }
