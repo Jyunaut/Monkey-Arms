@@ -20,7 +20,7 @@ namespace Enemy
         public class RangeAttack
         {
             public Vector2 direction;
-            public Bullet bullet;
+            public GameObject bullet;
             public float speed;
             public float fireRate;
             public int shots;
