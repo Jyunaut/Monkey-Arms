@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Shoot", menuName = "Enemy Action Library/Shoot")]
-    public class Shoot : Action
+    [CreateAssetMenu(fileName = "Shoot At Direction", menuName = "Enemy Action Library/Shoot At Direction")]
+    public class ShootAtDirection : Action
     {
         public RangeAttack rangeAttack;
         public Vector3 position;
@@ -17,6 +17,8 @@ namespace Enemy
                 rangeAttack.bullet.SetBullet(rangeAttack.direction, rangeAttack.speed);
                 Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
             }
+            IsLastAction = true;
+            Transition();
         }
     }
 }

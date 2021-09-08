@@ -4,11 +4,15 @@ using UnityEngine;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Controller : MonoBehaviour
     {
         public List<Action> ActionList;
-        private Action currentAction;
+        [SerializeField] private Action currentAction;
+        private Action rootAction;
         private Vector2 faceDirection;
+
+        public Rigidbody2D Rigidbody2D { get; set; }
 
         private void Awake()
         {
@@ -18,13 +22,14 @@ namespace Enemy
                 {
                     item.SetAction(this);
                 }
-                currentAction = ActionList[0];
+                rootAction = ActionList[0];
             }
+            Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         private void Start()
         {
-            SetAction(currentAction);
+            SetAction(rootAction);
         }
 
         private void Update()
@@ -35,6 +40,13 @@ namespace Enemy
         private void FixedUpdate()
         {
             currentAction?.OnFixedUpdate();
+        }
+
+        // Enemy has completed all their transitions
+        public void TriggerActionsComplete()
+        {
+            // Reset to first move in the list
+            SetAction(rootAction);
         }
 
         public void SetAction(Action newAction)

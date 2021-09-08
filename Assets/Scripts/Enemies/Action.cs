@@ -26,6 +26,8 @@ namespace Enemy
 
         [field: SerializeField] public Action TransitionTo { get; set; }
         [field: SerializeField] public Controller Controller { get; set; }
+        [field: SerializeField] public bool IsLastAction { get; set; }
+        [field: SerializeField] public float EndDelay { get; set; }
         protected List<Coroutine> coroutines;
 
         public virtual void SetAction(Controller controller)
@@ -39,7 +41,15 @@ namespace Enemy
         public virtual void OnFixedUpdate() { }
         protected virtual void Transition()
         {
-            Controller?.SetAction(TransitionTo);
+            coroutines.Add(Controller.StartCoroutine(DelayAction()));
+            IEnumerator DelayAction()
+            {
+                yield return new WaitForSeconds(EndDelay);
+                if (IsLastAction)
+                    Controller.TriggerActionsComplete();
+                else
+                    Controller.SetAction(TransitionTo);
+            }
         }
         public virtual void OnExit()
         {
