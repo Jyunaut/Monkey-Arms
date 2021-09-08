@@ -19,14 +19,16 @@ namespace Player
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
 
+        private ArmConnection _armConnection;
         private Inputs _inputs;
         private WaitForSeconds _disableTime;
 
         private void Awake()
         {
-            _inputs = new Inputs(_hand);
             Rigidbody2d = GetComponent<Rigidbody2D>();
             Collider2d = GetComponent<Collider2D>();
+            _armConnection = GetComponentInParent<ArmConnection>();
+            _inputs = new Inputs(_hand);
         }
 
         private void Update()
@@ -49,6 +51,7 @@ namespace Player
 
         private void UpdateMove()
         {
+            _armConnection.GetHandNode(_hand).locked = false;
             Vector2 currentVelocity = Rigidbody2d.velocity;
             Vector2 direction = Vector2.zero;
             Vector2 targetVelocity = Vector2.zero;
@@ -63,6 +66,7 @@ namespace Player
 
         private void UpdateGrab()
         {
+            _armConnection.GetHandNode(_hand).locked = true;
             if (_inputs.IsPressingMovement)
             {
                 if (_grabReleaseTimer >= _grabReleaseDuration)
