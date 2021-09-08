@@ -37,8 +37,14 @@ namespace Player
         private void UpdateMove()
         {
             Vector2 currentVelocity = Rigidbody2d.velocity;
-            Vector2 direction = (Vector2.right * _inputs.Horizontal.Invoke() + Vector2.up * _inputs.Vertical.Invoke()).normalized;
-            Vector2 targetVelocity = MoveSpeed * direction;
+            Vector2 direction = Vector2.zero;
+            Vector2 targetVelocity = Vector2.zero;
+
+            if (_inputs.IsPressingMovement)
+            {
+                direction = (Vector2.right * _inputs.Horizontal.Invoke() + Vector2.up * _inputs.Vertical.Invoke()).normalized;
+                targetVelocity = MoveSpeed * direction;
+            }
             Rigidbody2d.velocity = Vector2.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, MoveAcceleration);
         }
     }
