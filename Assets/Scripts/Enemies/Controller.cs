@@ -2,17 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+namespace Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Controller : MonoBehaviour
     {
-        
-    }
+        public List<Action> ActionList;
+        private Action currentAction;
+        private Vector2 faceDirection;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            if(ActionList.Count > 0)
+            {
+                foreach (Action item in ActionList)
+                {
+                    item.SetAction(this);
+                }
+                currentAction = ActionList[0];
+            }
+        }
+
+        private void Start()
+        {
+            SetAction(currentAction);
+        }
+
+        private void Update()
+        {
+            currentAction?.OnUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            currentAction?.OnFixedUpdate();
+        }
+
+        public void SetAction(Action newAction)
+        {
+            currentAction?.OnExit();
+            currentAction = newAction;
+            currentAction?.OnEnter();
+        }
     }
 }
+    
