@@ -240,7 +240,7 @@ PrefabInstance:
     - target: {fileID: 3224148720893352977, guid: 9c716e8339043d6499b5a1a1475d1ac6, type: 3}
       propertyPath: <rangeAttack>k__BackingField.bullet
       value: 
-      objectReference: {fileID: 659713481531102762, guid: bb02f72e87fd7dc4d8517bbb97ffd689, type: 3}
+      objectReference: {fileID: 3423203996714518121, guid: bb02f72e87fd7dc4d8517bbb97ffd689, type: 3}
     - target: {fileID: 3224148720893352977, guid: 9c716e8339043d6499b5a1a1475d1ac6, type: 3}
       propertyPath: <rangeAttack>k__BackingField.fireRate
       value: 1
