@@ -12,6 +12,12 @@ namespace Enemy
 
         public override void OnEnter()
         {
+            Controller.StartCoroutine(Shoot());
+        }
+
+        IEnumerator Shoot()
+        {
+            yield return new WaitForSeconds(0f);
             if(rangeAttack != null)
             {
                 rangeAttack.bullet.SetBullet(rangeAttack.direction, rangeAttack.speed);
