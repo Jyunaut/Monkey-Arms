@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2526594be6ea02479b68935e5741545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionList:
-  - {fileID: 11400000, guid: 19bbbf38c1da0064299a579581e51605, type: 2}
-  - {fileID: 11400000, guid: 25e1ba657693b5f40b8890650339abf7, type: 2}
+  <ActionList>k__BackingField:
+  - {fileID: 0}
+  - {fileID: 0}
   currentAction: {fileID: 0}

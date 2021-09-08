@@ -16,8 +16,8 @@ MonoBehaviour:
   <Controller>k__BackingField: {fileID: 0}
   <IsLastAction>k__BackingField: 1
   <EndDelay>k__BackingField: 2
-  rangeAttack:
+  <rangeAttack>k__BackingField:
     direction: {x: 1, y: 1}
-    speed: 5
+    speed: 3
     bullet: {fileID: 659713481531102762, guid: bb02f72e87fd7dc4d8517bbb97ffd689, type: 3}
-  position: {x: 0, y: 0, z: 0}
+  <position>k__BackingField: {x: 0, y: 0, z: 0}

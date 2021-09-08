@@ -273,6 +273,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2055922372493715473, guid: 1038dbb14444f4146a2c7655ac76bddf, type: 3}
+      propertyPath: <ActionList>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bbbf38c1da0064299a579581e51605, type: 2}
+    - target: {fileID: 2055922372493715473, guid: 1038dbb14444f4146a2c7655ac76bddf, type: 3}
+      propertyPath: <ActionList>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 25e1ba657693b5f40b8890650339abf7, type: 2}
     - target: {fileID: 2055922372493715475, guid: 1038dbb14444f4146a2c7655ac76bddf, type: 3}
       propertyPath: m_RootOrder
       value: 4
