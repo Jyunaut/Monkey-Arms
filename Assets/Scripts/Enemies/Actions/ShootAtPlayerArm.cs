@@ -8,11 +8,11 @@ namespace Enemy
     public class ShootAtPlayerArm : Action
     {
         public enum ArmTarget { Left, Right }
-        public RangeAttack rangeAttack;
-        public Vector3 position;
-        public ArmTarget armTarget = ArmTarget.Left;
-        private Vector2 playerBody;
-        private Vector2 playerArm;
+        [field: SerializeField] public RangeAttack rangeAttack { get; set; }
+        [field: SerializeField] public Vector3 position { get; set; }
+        [field: SerializeField] public ArmTarget armTarget { get; set; } = ArmTarget.Left;
+        private Vector2 _playerBody;
+        private Vector2 _playerArm;
 
         public override void OnEnter()
         {
@@ -27,7 +27,7 @@ namespace Enemy
                 default:
                     goto case ArmTarget.Right;
             }
-            Vector2 InBetween = (playerBody - (Vector2)Controller.transform.position) + (playerArm - (Vector2)Controller.transform.position);
+            Vector2 InBetween = (_playerBody - (Vector2)Controller.transform.position) + (_playerArm - (Vector2)Controller.transform.position);
             Vector2 Direction = InBetween - (Vector2)Controller.transform.position;
             rangeAttack.direction = Direction.normalized;
             Controller.StartCoroutine(Shoot());
@@ -38,7 +38,7 @@ namespace Enemy
             yield return new WaitForSeconds(0f);
             if(rangeAttack != null)
             {
-                rangeAttack.bullet.SetBullet(rangeAttack.direction, rangeAttack.speed);
+                rangeAttack.bullet.SetBullet(rangeAttack.direction.normalized, rangeAttack.speed);
                 Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
             }
             IsLastAction = true;

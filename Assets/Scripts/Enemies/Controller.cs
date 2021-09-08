@@ -7,12 +7,12 @@ namespace Enemy
     [RequireComponent(typeof(Rigidbody2D))]
     public class Controller : MonoBehaviour
     {
-        public List<Action> ActionList;
+        [field: SerializeField] public List<Action> ActionList { get; set; }
         [SerializeField] private Action currentAction;
-        private Action rootAction;
-        private Vector2 faceDirection;
+        private Action _rootAction;
+        private Vector2 _faceDirection;
 
-        public Rigidbody2D Rigidbody2D { get; set; }
+        public Rigidbody2D Rigidbody2D { get; private set; }
 
         private void Awake()
         {
@@ -22,14 +22,14 @@ namespace Enemy
                 {
                     item.SetAction(this);
                 }
-                rootAction = ActionList[0];
+                _rootAction = ActionList[0];
             }
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         private void Start()
         {
-            SetAction(rootAction);
+            SetAction(_rootAction);
         }
 
         private void Update()
@@ -46,7 +46,7 @@ namespace Enemy
         public void TriggerActionsComplete()
         {
             // Reset to first move in the list
-            SetAction(rootAction);
+            SetAction(_rootAction);
         }
 
         public void SetAction(Action newAction)
