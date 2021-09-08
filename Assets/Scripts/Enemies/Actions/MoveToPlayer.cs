@@ -11,10 +11,11 @@ namespace Enemy
         [field: SerializeField] public Target target { get; set; }
         [field: SerializeField] public float Speed { get; set; }
         private Vector2 _target;
-        private bool _isDone = false;
+        private bool _isDone;
 
         public override void OnEnter()
         {
+            _isDone = false;
             switch (target)
             {
                 case Target.Body:
