@@ -13,6 +13,10 @@ namespace Player
         public delegate int VerticalMovement();
         public VerticalMovement Vertical;
 
+        public bool IsEnabled { get; set; } = true;
+        public bool IsPressingMovement => IsEnabled && (Mathf.Abs(Horizontal.Invoke()) > 0 || Mathf.Abs(Vertical.Invoke()) > 0);
+        public bool Interact => IsEnabled && Input.GetKeyDown(KeyCode.Space);
+
         public Inputs(Hand hand)
         {
             switch (hand)
@@ -28,10 +32,10 @@ namespace Player
             }
         }
 
-        public bool IsPressingMovement => Mathf.Abs(Horizontal.Invoke()) > 0 || Mathf.Abs(Vertical.Invoke()) > 0;
-
         private int LHMove()
         {
+            if (!IsEnabled)
+                return 0;
             if (Input.GetKey(KeyCode.A))
                 return -1;
             if (Input.GetKey(KeyCode.D))
@@ -41,6 +45,8 @@ namespace Player
 
         private int LVMove()
         {
+            if (!IsEnabled)
+                return 0;
             if (Input.GetKey(KeyCode.S))
                 return -1;
             if (Input.GetKey(KeyCode.W))
@@ -50,6 +56,8 @@ namespace Player
 
         private int RHMove()
         {
+            if (!IsEnabled)
+                return 0;
             if (Input.GetKey(KeyCode.J))
                 return -1;
             if (Input.GetKey(KeyCode.L))
@@ -59,13 +67,13 @@ namespace Player
 
         private int RVMove()
         {
+            if (!IsEnabled)
+                return 0;
             if (Input.GetKey(KeyCode.K))
                 return -1;
             if (Input.GetKey(KeyCode.I))
                 return 1;
             return 0;
         }
-
-        public static bool Interact => Input.GetKeyDown(KeyCode.Space);
     }
 }

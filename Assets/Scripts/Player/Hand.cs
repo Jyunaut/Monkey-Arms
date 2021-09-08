@@ -12,10 +12,15 @@ namespace Player
         [field: SerializeField] public float MoveSpeed { get; private set; }
         [field: SerializeField] public float MoveAcceleration { get; private set; }
 
+        [SerializeField] private float _grabReleaseDuration;
+        private float _grabReleaseTimer;
+        private bool _isGrabbing;
+
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
 
         private Inputs _inputs;
+        private WaitForSeconds _disableTime;
 
         private void Awake()
         {
@@ -26,12 +31,20 @@ namespace Player
 
         private void Update()
         {
-            UpdateMove();
+            if (_isGrabbing)
+                UpdateGrab();
+            else
+                UpdateMove();
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            
+            if (other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
+            {
+                transform.position = other.transform.position;
+                Rigidbody2d.velocity = Vector2.zero;
+                _isGrabbing = true;
+            }            
         }
 
         private void UpdateMove()
@@ -46,6 +59,26 @@ namespace Player
                 targetVelocity = MoveSpeed * direction;
             }
             Rigidbody2d.velocity = Vector2.SmoothDamp(currentVelocity, targetVelocity, ref currentVelocity, MoveAcceleration);
+        }
+
+        private void UpdateGrab()
+        {
+            if (_inputs.IsPressingMovement)
+            {
+                if (_grabReleaseTimer >= _grabReleaseDuration)
+                {
+                    _isGrabbing = false;
+                    _grabReleaseTimer = 0f;
+                }
+                else
+                {
+                    _grabReleaseTimer += Time.deltaTime;
+                }
+            }
+            else
+            {
+                _grabReleaseTimer = 0f;
+            }
         }
     }
 }
