@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Monkey Body
+  - Monkey Left Hand
+  - Monkey Right Hand
   layers:
   - Default
   - TransparentFX
@@ -11,9 +14,9 @@ TagManager:
   - 
   - Water
   - UI
-  - MonkeyHand
-  - 
-  - 
+  - Monkey Hand
+  - Monkey Body
+  - Handle
   - 
   - 
   - 
@@ -40,4 +43,31 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background/Back
+    uniqueID: 3943933957
+    locked: 0
+  - name: Background/Middle
+    uniqueID: 460382089
+    locked: 0
+  - name: Background/Front
+    uniqueID: 1783133345
+    locked: 0
+  - name: Middleground/Back
+    uniqueID: 451665373
+    locked: 0
+  - name: Middleground/Middle
+    uniqueID: 2684843741
+    locked: 0
+  - name: Middleground/Front
+    uniqueID: 716479965
+    locked: 0
+  - name: Foreground/Back
+    uniqueID: 1136403987
+    locked: 0
+  - name: Foreground/Middle
+    uniqueID: 173157069
+    locked: 0
+  - name: Foreground/Front
+    uniqueID: 139736003
     locked: 0
