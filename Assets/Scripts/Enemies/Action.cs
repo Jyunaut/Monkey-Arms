@@ -6,7 +6,7 @@ using System;
 
 namespace Enemy
 {
-    public abstract class Action : ScriptableObject
+    public abstract class Action : MonoBehaviour
     {
         [System.Serializable]
         public class MeleeAttack
@@ -20,8 +20,10 @@ namespace Enemy
         public class RangeAttack
         {
             public Vector2 direction;
-            public float speed;
             public Bullet bullet;
+            public float speed;
+            public float fireRate;
+            public int shots;
         }
 
         [field: SerializeField] public Action TransitionTo { get; set; }

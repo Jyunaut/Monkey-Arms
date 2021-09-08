@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(fileName = "Shoot At Direction", menuName = "Enemy Action Library/Shoot At Direction")]
     public class ShootAtDirection : Action
     {
         [field: SerializeField] public RangeAttack rangeAttack { get; set; }
@@ -13,17 +12,20 @@ namespace Enemy
         public override void OnEnter()
         {
             Controller.StartCoroutine(Shoot());
+            position = Controller.transform.position;
+            rangeAttack.bullet.SetBullet(rangeAttack.direction.normalized, rangeAttack.speed);
         }
 
         IEnumerator Shoot()
         {
-            yield return new WaitForSeconds(0f);
             if(rangeAttack != null)
             {
-                rangeAttack.bullet.SetBullet(rangeAttack.direction.normalized, rangeAttack.speed);
-                Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                for(int i = 0; i < rangeAttack.shots; i++)
+                {
+                    yield return new WaitForSeconds(rangeAttack.fireRate);
+                    Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                }
             }
-            IsLastAction = true;
             Transition();
         }
     }
