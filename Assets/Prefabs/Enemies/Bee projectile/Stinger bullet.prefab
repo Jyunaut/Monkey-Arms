@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e9f47a2ef59d7488bfc4ce7f0337ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Direction>k__BackingField: {x: 1, y: 1}
-  <Speed>k__BackingField: 5
+  <ActiveTime>k__BackingField: 5
+  Rigidbody2D: {fileID: 0}

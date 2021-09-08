@@ -30,7 +30,7 @@ namespace Enemy
             }
             Vector2 InBetween = (_playerBody - (Vector2)Controller.transform.position) + (_playerArm - (Vector2)Controller.transform.position);
             Vector2 Direction = InBetween - (Vector2)Controller.transform.position;
-            rangeAttack.bullet.SetBullet(Direction.normalized, rangeAttack.speed);
+            rangeAttack.direction = Direction.normalized;
             Controller.StartCoroutine(Shoot());
         }
 
@@ -41,7 +41,8 @@ namespace Enemy
                 for(int i = 0; i < rangeAttack.shots; i++)
                 {
                     yield return new WaitForSeconds(rangeAttack.fireRate);
-                    Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                    GameObject bullet = Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                    bullet.GetComponent<Rigidbody2D>().velocity = rangeAttack.speed * rangeAttack.direction;
                 }
             }
             Transition();
