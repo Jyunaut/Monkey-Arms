@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class SpawnEvent : MonoBehaviour
 {
-    public enum TripTarget { Arm, Body, Camera }
-    public float spawnDelay;
-    public TripTarget tripTarget;
-    public List<GameObject> EnemyCollection;
+    public enum TripTarget { Hand, Body, Camera }
+    [field: SerializeField] public float spawnDelay { get; set; }
+    [field: SerializeField] public TripTarget tripTarget { get; set; }
+    [field: SerializeField] public List<GameObject> EnemyCollection { get; set; }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         switch (tripTarget)
         {
             case TripTarget.Body:
-                if (col.tag == "Body")
+                if (LayerMask.GetMask(GlobalStrings.kMonkeyBody) == (LayerMask.GetMask(GlobalStrings.kMonkeyBody) | (1 << col.gameObject.layer)))
                 {
                     Spawn();
                     gameObject.GetComponent<Collider2D>().enabled = false;
                 }
                 break;
-            case TripTarget.Arm:
-                if (col.tag == "Arm")
+            case TripTarget.Hand:
+                if (LayerMask.GetMask(GlobalStrings.kMonkeyHand) == (LayerMask.GetMask(GlobalStrings.kMonkeyHand) | (1 << col.gameObject.layer)))
                 {
-                    Debug.Log("Spawn");
                     Spawn();
                     gameObject.GetComponent<Collider2D>().enabled = false;
                 }
@@ -35,7 +34,7 @@ public class SpawnEvent : MonoBehaviour
                     gameObject.GetComponent<Collider2D>().enabled = false;
                 }
                 break;
-                default:
+            default:
                 goto case TripTarget.Body;
         }
     }
