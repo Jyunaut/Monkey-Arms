@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: 1
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeed>k__BackingField: 3
   <MoveAcceleration>k__BackingField: 0.05
   _grabReleaseDuration: 0.1
   _otherHand: {fileID: 8416900237916235517}
@@ -397,6 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _armLength: 1
+  _armWidth: 1.5
+  _armMaterial: {fileID: 2100000, guid: 943055b50d547d644beafb4fd4cc7a2c, type: 2}
   _nodes:
   - transform: {fileID: 8416900237916235513}
     locked: 0
@@ -543,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: 0
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeed>k__BackingField: 3
   <MoveAcceleration>k__BackingField: 0.05
   _grabReleaseDuration: 0.1
   _otherHand: {fileID: 8416900236417462927}
