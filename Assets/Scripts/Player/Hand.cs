@@ -15,6 +15,7 @@ namespace Player
         [SerializeField] private float _grabReleaseDuration;
         private float _grabReleaseTimer;
         private bool _isGrabbing;
+        private GameObject _grabbedHandle;
 
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
@@ -43,7 +44,8 @@ namespace Player
         {
             if (other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
             {
-                transform.position = other.transform.position;
+                _grabbedHandle = other.gameObject;
+                transform.position = _grabbedHandle.transform.position;
                 Rigidbody2d.velocity = Vector2.zero;
                 _isGrabbing = true;
             }            
@@ -73,6 +75,7 @@ namespace Player
                 {
                     _isGrabbing = false;
                     _grabReleaseTimer = 0f;
+                    _grabbedHandle = null;
                 }
                 else
                 {
@@ -82,6 +85,7 @@ namespace Player
             else
             {
                 _grabReleaseTimer = 0f;
+                transform.position = _grabbedHandle.transform.position;
             }
         }
     }
