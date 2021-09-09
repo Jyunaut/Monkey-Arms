@@ -21,6 +21,7 @@ namespace Enemy
             {
                 for(int i = 0; i < rangeAttack.shots; i++)
                 {
+                    Controller.Animator.SetTrigger("Attack");
                     yield return new WaitForSeconds(rangeAttack.fireRate);
                     GameObject bullet = Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
                     bullet.GetComponent<Rigidbody2D>().velocity = rangeAttack.speed * rangeAttack.direction;
