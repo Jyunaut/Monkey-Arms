@@ -9,6 +9,7 @@ public class CollectibleBananaScore : MonoBehaviour
 	    if (other.CompareTag("Player")) {
 		    int currentScore = PlayerPrefs.GetInt("Score", 0);
 		    PlayerPrefs.SetInt("Score", currentScore+1);
+		    gameObject.SetActive(false);
 	    }
     }
     
