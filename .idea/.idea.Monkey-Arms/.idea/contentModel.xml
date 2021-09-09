@@ -6,9 +6,6 @@
     <e p="D:\Documents\GameJams\Monkey-Arms" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ClockScript.cs" t="Include" />
-        <e p="LoseZone.cs" t="Include" />
-        <e p="ScoreChecker.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Enemies" t="Include">
             <e p="Action.cs" t="Include" />
@@ -29,9 +26,15 @@
             <e p="GameStateManager.cs" t="Include" />
           </e>
           <e p="Misc" t="Include">
+            <e p="ClockScript.cs" t="Include" />
             <e p="CollectibleBananaScore.cs" t="Include" />
+            <e p="LoseZone.cs" t="Include" />
             <e p="PlayGameButton.cs" t="Include" />
+            <e p="ScoreChecker.cs" t="Include" />
             <e p="SpawnPopulate.cs" t="Include" />
+            <e p="ToggleCameraMovement.cs" t="Include" />
+            <e p="WinLoseConditionChecker.cs" t="Include" />
+            <e p="WinZone.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
             <e p="ArmConnection.cs" t="Include" />
@@ -79,8 +82,6 @@
         <e p="Tilemap" t="Include">
           <e p="Scroll.cs" t="Include" />
         </e>
-        <e p="WinLoseConditionChecker.cs" t="Include" />
-        <e p="WinZone.cs" t="Include" />
       </e>
       <e p="Monkey-Arms.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
