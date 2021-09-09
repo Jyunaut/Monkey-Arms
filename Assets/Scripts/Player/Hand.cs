@@ -13,8 +13,11 @@ namespace Player
         [field: SerializeField] public float MoveAcceleration { get; private set; }
 
         [SerializeField] private float _grabReleaseDuration;
+        [SerializeField] private Hand _otherHand;
         private float _grabReleaseTimer;
-        private bool _isGrabbing;
+        [SerializeField] private bool _isGrabbing;
+        private GameObject _grabbedHandle;
+        private bool _locked;
 
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
@@ -22,6 +25,7 @@ namespace Player
         private ArmConnection _armConnection;
         private Inputs _inputs;
         private WaitForSeconds _disableTime;
+        private float _prevGravityScale;
 
         private void Awake()
         {
@@ -35,23 +39,29 @@ namespace Player
         {
             if (_isGrabbing)
                 UpdateGrab();
-            else
+            else if (_otherHand._isGrabbing)
                 UpdateMove();
+
+            if (!_inputs.IsPressingMovement)
+                _locked = false;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
             {
-                transform.position = other.transform.position;
+                _grabbedHandle = other.gameObject;
+                transform.position = _grabbedHandle.transform.position;
                 Rigidbody2d.velocity = Vector2.zero;
+                _prevGravityScale = Rigidbody2d.gravityScale;
+                Rigidbody2d.gravityScale = 0f;
                 _isGrabbing = true;
+                _locked = true;
             }            
         }
 
         private void UpdateMove()
         {
-            _armConnection.GetHandNode(_hand).locked = false;
             Vector2 currentVelocity = Rigidbody2d.velocity;
             Vector2 direction = Vector2.zero;
             Vector2 targetVelocity = Vector2.zero;
@@ -67,12 +77,15 @@ namespace Player
         private void UpdateGrab()
         {
             _armConnection.GetHandNode(_hand).locked = true;
-            if (_inputs.IsPressingMovement)
+            if (_inputs.IsPressingMovement && !_locked)
             {
                 if (_grabReleaseTimer >= _grabReleaseDuration)
                 {
+                    _armConnection.GetHandNode(_hand).locked = false;
                     _isGrabbing = false;
                     _grabReleaseTimer = 0f;
+                    _grabbedHandle = null;
+                    Rigidbody2d.gravityScale = _prevGravityScale;
                 }
                 else
                 {
@@ -82,6 +95,7 @@ namespace Player
             else
             {
                 _grabReleaseTimer = 0f;
+                transform.position = _grabbedHandle.transform.position;
             }
         }
     }
