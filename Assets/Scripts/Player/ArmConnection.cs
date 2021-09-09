@@ -31,6 +31,10 @@ namespace Player
 
         private void Awake()
         {
+            for (int i = 0; i < _nodes.Count; i++)
+            {
+                _nodes[i].prevPosition = _nodes[i].transform.position;
+            }
             for (int i = 0; i < _nodes.Count-1; i++)
             {
                 _limbs.Add(new Limb(_nodes[i], _nodes[i+1], _armLength));
@@ -62,8 +66,8 @@ namespace Player
                 if (!n.locked)
                 {
                     Vector2 temp = n.transform.position;
-                    n.transform.position = (Vector2)n.transform.position + ((Vector2)n.transform.position - n.prevPosition);
-                    n.transform.position = (Vector2)n.transform.position + Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime;
+                    n.transform.position += n.transform.position - (Vector3)n.prevPosition;
+                    n.transform.position += (Vector3)(Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime);
                     n.prevPosition = temp;
                 }
             }
@@ -76,8 +80,15 @@ namespace Player
                     Vector2 direction = (l.nodeA.transform.position - l.nodeB.transform.position).normalized;
                     if (!l.nodeA.locked)
                         l.nodeA.transform.position = center + l.length * direction / 2f;
+                    else
+                        l.nodeA.prevPosition = l.nodeA.transform.position;
                     if (!l.nodeB.locked)
                         l.nodeB.transform.position = center - l.length * direction / 2f;
+                    else
+                        l.nodeB.prevPosition = l.nodeB.transform.position;
+
+                    // Debug.DrawLine(l.nodeA.transform.position, (Vector2)l.nodeA.transform.position + 10f * ((Vector2)l.nodeA.transform.position - l.nodeA.prevPosition).sqrMagnitude * ((Vector2)l.nodeA.transform.position - l.nodeA.prevPosition).normalized, Color.red);
+                    // Debug.DrawLine(l.nodeB.transform.position, (Vector2)l.nodeB.transform.position + 10f * ((Vector2)l.nodeB.transform.position - l.nodeB.prevPosition).sqrMagnitude * ((Vector2)l.nodeB.transform.position - l.nodeB.prevPosition).normalized, Color.blue);
                 }
             }
         }

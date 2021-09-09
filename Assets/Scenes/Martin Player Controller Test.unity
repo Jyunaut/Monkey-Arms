@@ -555,22 +555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2623001834079630208, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LinearDrag
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6325779509530760076, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LinearDrag
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900236417462925, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LinearDrag
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900236417462927, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: _grabReleaseDuration
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 8416900236785400186, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -618,22 +602,6 @@ PrefabInstance:
     - target: {fileID: 8416900236785400189, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
       propertyPath: m_Name
       value: Monkey
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900237916235515, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LinearDrag
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900237916235517, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: _grabReleaseDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900237983469180, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8416900237983469180, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LinearDrag
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
