@@ -6431,13 +6431,9 @@ PrefabInstance:
       propertyPath: _armLength
       value: 1.25
       objectReference: {fileID: 0}
-    - target: {fileID: 5784444287650841442, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.93
-      objectReference: {fileID: 0}
     - target: {fileID: 8416900236417462923, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.42
+      value: 2.53
       objectReference: {fileID: 0}
     - target: {fileID: 8416900236785400186, guid: daa8d67bc64a8044c82ca43b7a6de995, type: 3}
       propertyPath: m_RootOrder
