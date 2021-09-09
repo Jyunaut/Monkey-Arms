@@ -95,7 +95,15 @@ namespace Player
             else
             {
                 _grabReleaseTimer = 0f;
-                transform.position = _grabbedHandle.transform.position;
+                if (_grabbedHandle != null) transform.position = _grabbedHandle.transform.position;
+                else
+                {
+                    _armConnection.GetHandNode(_hand).locked = false;
+                    _isGrabbing = false;
+                    _grabReleaseTimer = 0f;
+                    _grabbedHandle = null;
+                    Rigidbody2d.gravityScale = _prevGravityScale;
+                }
             }
         }
     }
