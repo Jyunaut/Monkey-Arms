@@ -46,9 +46,9 @@ namespace Player
                 _locked = false;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
+            if (!_inputs.IsPressingMovement && !_isGrabbing && other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
             {
                 _grabbedHandle = other.gameObject;
                 transform.position = _grabbedHandle.transform.position;
