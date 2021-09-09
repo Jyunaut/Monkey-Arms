@@ -8,6 +8,12 @@ public class SpawnEvent : MonoBehaviour
     [field: SerializeField] public float spawnDelay { get; set; }
     [field: SerializeField] public TripTarget tripTarget { get; set; }
     [field: SerializeField] public List<GameObject> EnemyCollection { get; set; }
+    
+    private void Awake()
+    {
+        for (int i = 0; i < this.transform.childCount; i++)
+            this.transform.GetChild(i).gameObject.SetActive(false);
+    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
