@@ -8,6 +8,8 @@ public class SpawnPopulate : MonoBehaviour
     [field: SerializeField] public Rect SpawningArea { get; set; }
     [field: SerializeField] public int DistanceBetweenObjects { get; set; } = 3;
     [field: SerializeField] public float CellSize { get; set; } = 1f;
+    [field: SerializeField] public int MINFrequency { get; set; } = 6;
+    [field: SerializeField] public int MAXFrequency { get; set; } = 2;
     private List<GameObject> _spawnedObjects = new List<GameObject>();
     private Grid _grid;
 
@@ -45,8 +47,8 @@ public class SpawnPopulate : MonoBehaviour
 
             if(currentSpawnList.Count <= 0)
                 continue;
-
-            while(true)
+            int frequency = Random.Range(MINFrequency, MAXFrequency);
+            for(int i = 0; i < frequency; i++)
             {
                 Spawn(currentSpawnList[Random.Range(0, currentSpawnList.Count - 1)]);
                 currentSpawnList = GetValidSpawns(y);
