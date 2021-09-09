@@ -6,8 +6,8 @@ public class SpawnPopulate : MonoBehaviour
 {
     [field: SerializeField] public GameObject SpawnObject { get; set; }
     [field: SerializeField] public Rect SpawningArea { get; set; }
-    [field: SerializeField] public int DistanceBetweenObjects { get; set; } = 3;
     [field: SerializeField] public float CellSize { get; set; } = 1f;
+    [field: SerializeField] public float DistanceBetweenObjects { get; set; } = 3f;
     [field: SerializeField] public int MINFrequency { get; set; } = 6;
     [field: SerializeField] public int MAXFrequency { get; set; } = 2;
     private List<GameObject> _spawnedObjects = new List<GameObject>();
@@ -29,6 +29,10 @@ public class SpawnPopulate : MonoBehaviour
                 _grid.SetGridCell(x, y, true);
             }
         }
+        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Left Hand").transform.position, out int xL, out int yL);
+        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Right Hand").transform.position, out int xR, out int yR);
+        Spawn(_grid.GetWorldPosition(xL, yL));
+        Spawn(_grid.GetWorldPosition(xR, yR));
         PopulateLevel();
     }
 
