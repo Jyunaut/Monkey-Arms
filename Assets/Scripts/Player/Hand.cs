@@ -16,6 +16,7 @@ namespace Player
         private float _grabReleaseTimer;
         private bool _isGrabbing;
         private GameObject _grabbedHandle;
+        private bool _locked;
 
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
@@ -38,6 +39,9 @@ namespace Player
                 UpdateGrab();
             else
                 UpdateMove();
+
+            if (!_inputs.IsPressingMovement)
+                _locked = false;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -48,6 +52,7 @@ namespace Player
                 transform.position = _grabbedHandle.transform.position;
                 Rigidbody2d.velocity = Vector2.zero;
                 _isGrabbing = true;
+                _locked = true;
             }            
         }
 
@@ -69,13 +74,14 @@ namespace Player
         private void UpdateGrab()
         {
             _armConnection.GetHandNode(_hand).locked = true;
-            if (_inputs.IsPressingMovement)
+            if (_inputs.IsPressingMovement && !_locked)
             {
                 if (_grabReleaseTimer >= _grabReleaseDuration)
                 {
                     _isGrabbing = false;
                     _grabReleaseTimer = 0f;
                     _grabbedHandle = null;
+                    Rigidbody2d.velocity = Vector2.zero;
                 }
                 else
                 {
