@@ -43,7 +43,13 @@ namespace Player
                 UpdateMove();
 
             if (!_inputs.IsPressingMovement)
+            {
                 _locked = false;
+                transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+                transform.GetChild(0).gameObject.SetActive(true);
+
         }
 
         private void OnTriggerStay2D(Collider2D other)
