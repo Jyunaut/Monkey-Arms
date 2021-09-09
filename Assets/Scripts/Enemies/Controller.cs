@@ -12,6 +12,7 @@ namespace Enemy
         private Action _rootAction;
         private Vector2 _faceDirection;
 
+        public Animator Animator { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
 
         private void Awake()
@@ -24,6 +25,7 @@ namespace Enemy
                 }
                 _rootAction = ActionList[0];
             }
+            Animator = GetComponent<Animator>();
             Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
