@@ -34,10 +34,8 @@ namespace Player
             for (int i = 0; i < _nodes.Count; i++)
             {
                 _nodes[i].prevPosition = _nodes[i].transform.position;
-            }
-            for (int i = 0; i < _nodes.Count-1; i++)
-            {
-                _limbs.Add(new Limb(_nodes[i], _nodes[i+1], _armLength));
+                if (i < _nodes.Count-1)
+                    _limbs.Add(new Limb(_nodes[i], _nodes[i+1], _armLength));
             }
         }
 
@@ -67,7 +65,7 @@ namespace Player
                 {
                     Vector2 temp = n.transform.position;
                     n.transform.position += n.transform.position - (Vector3)n.prevPosition;
-                    n.transform.position += (Vector3)(Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime);
+                    // n.transform.position += (Vector3)(Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime);
                     n.prevPosition = temp;
                 }
             }
