@@ -91,7 +91,8 @@ namespace Player
             else
             {
                 _grabReleaseTimer = 0f;
-                transform.position = _grabbedHandle.transform.position;
+                if (_grabbedHandle != null) transform.position = _grabbedHandle.transform.position;
+                else _isGrabbing = false;
             }
         }
     }
