@@ -15,13 +15,15 @@ namespace Enemy
 
         public override void OnEnter()
         {
+            _playerBody = (Vector2)GameObject.FindGameObjectWithTag("Monkey Body").transform.position;
+            position = Controller.transform.position;
             switch(armTarget)
             {
                 case ArmTarget.Left:
-                //TODO: Get playerArm target from tag
+                    _playerArm = (Vector2)GameObject.FindGameObjectWithTag("Monkey Left Hand").transform.position;
                     break;
                 case ArmTarget.Right:
-                //TODO: Get playerArm target from tag
+                    _playerArm = (Vector2)GameObject.FindGameObjectWithTag("Monkey Right Hand").transform.position;
                     break;
                 default:
                     goto case ArmTarget.Right;
@@ -34,13 +36,15 @@ namespace Enemy
 
         IEnumerator Shoot()
         {
-            yield return new WaitForSeconds(0f);
             if(rangeAttack != null)
             {
-                rangeAttack.bullet.SetBullet(rangeAttack.direction.normalized, rangeAttack.speed);
-                Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                for(int i = 0; i < rangeAttack.shots; i++)
+                {
+                    yield return new WaitForSeconds(rangeAttack.fireRate);
+                    GameObject bullet = Instantiate(rangeAttack.bullet.gameObject, position, Quaternion.identity);
+                    bullet.GetComponent<Rigidbody2D>().velocity = rangeAttack.speed * rangeAttack.direction;
+                }
             }
-            IsLastAction = true;
             Transition();
         }
     }
