@@ -75,6 +75,15 @@ namespace Player
             return null;
         }
 
+        public void UpdateArmSprites()
+        {
+            foreach (Limb l in _limbs)
+            {
+                l.armSprite.SetPosition(0, l.nodeA.transform.position);
+                l.armSprite.SetPosition(1, l.nodeB.transform.position);
+            }
+        }
+
         private void UpdateJointPositions()
         {
             foreach (Node n in _nodes)

@@ -77,6 +77,7 @@ namespace Player
         private void UpdateGrab()
         {
             _armConnection.GetHandNode(_hand).locked = true;
+            _armConnection.UpdateArmSprites();
             if (_inputs.IsPressingMovement && !_locked)
             {
                 if (_grabReleaseTimer >= _grabReleaseDuration)
