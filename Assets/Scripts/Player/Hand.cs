@@ -13,8 +13,9 @@ namespace Player
         [field: SerializeField] public float MoveAcceleration { get; private set; }
 
         [SerializeField] private float _grabReleaseDuration;
+        [SerializeField] private Hand _otherHand;
         private float _grabReleaseTimer;
-        private bool _isGrabbing;
+        [SerializeField] private bool _isGrabbing;
         private GameObject _grabbedHandle;
         private bool _locked;
 
@@ -24,6 +25,7 @@ namespace Player
         private ArmConnection _armConnection;
         private Inputs _inputs;
         private WaitForSeconds _disableTime;
+        private float _prevGravityScale;
 
         private void Awake()
         {
@@ -37,20 +39,22 @@ namespace Player
         {
             if (_isGrabbing)
                 UpdateGrab();
-            else
+            else if (_otherHand._isGrabbing)
                 UpdateMove();
 
             if (!_inputs.IsPressingMovement)
                 _locked = false;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
+            if (!_inputs.IsPressingMovement && !_isGrabbing && other.gameObject.layer == LayerMask.NameToLayer(GlobalStrings.kHandle))
             {
                 _grabbedHandle = other.gameObject;
                 transform.position = _grabbedHandle.transform.position;
                 Rigidbody2d.velocity = Vector2.zero;
+                _prevGravityScale = Rigidbody2d.gravityScale;
+                Rigidbody2d.gravityScale = 0f;
                 _isGrabbing = true;
                 _locked = true;
             }            
@@ -58,7 +62,6 @@ namespace Player
 
         private void UpdateMove()
         {
-            _armConnection.GetHandNode(_hand).locked = false;
             Vector2 currentVelocity = Rigidbody2d.velocity;
             Vector2 direction = Vector2.zero;
             Vector2 targetVelocity = Vector2.zero;
@@ -78,10 +81,11 @@ namespace Player
             {
                 if (_grabReleaseTimer >= _grabReleaseDuration)
                 {
+                    _armConnection.GetHandNode(_hand).locked = false;
                     _isGrabbing = false;
                     _grabReleaseTimer = 0f;
                     _grabbedHandle = null;
-                    Rigidbody2d.velocity = Vector2.zero;
+                    Rigidbody2d.gravityScale = _prevGravityScale;
                 }
                 else
                 {
@@ -91,7 +95,15 @@ namespace Player
             else
             {
                 _grabReleaseTimer = 0f;
-                transform.position = _grabbedHandle.transform.position;
+                if (_grabbedHandle != null) transform.position = _grabbedHandle.transform.position;
+                else
+                {
+                    _armConnection.GetHandNode(_hand).locked = false;
+                    _isGrabbing = false;
+                    _grabReleaseTimer = 0f;
+                    _grabbedHandle = null;
+                    Rigidbody2d.gravityScale = _prevGravityScale;
+                }
             }
         }
     }

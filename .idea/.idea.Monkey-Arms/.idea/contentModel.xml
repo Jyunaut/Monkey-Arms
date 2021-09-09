@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\benat\.Rider2019.2\system\extResources" t="IncludeRecursive" />
@@ -6,6 +6,8 @@
     <e p="D:\Documents\GameJams\Monkey-Arms" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="ClockScript.cs" t="Include" />
+        <e p="ScoreChecker.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Enemies" t="Include">
             <e p="Action.cs" t="Include" />
@@ -28,6 +30,7 @@
           <e p="Misc" t="Include">
             <e p="CollectibleBananaScore.cs" t="Include" />
             <e p="PlayGameButton.cs" t="Include" />
+            <e p="SpawnPopulate.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
             <e p="ArmConnection.cs" t="Include" />
@@ -36,6 +39,8 @@
           </e>
           <e p="Systems" t="Include">
             <e p="CameraMovement.cs" t="Include" />
+            <e p="Despawner.cs" t="Include" />
+            <e p="Grid.cs" t="Include" />
             <e p="SpawnEvent.cs" t="Include" />
           </e>
         </e>

@@ -16,24 +16,44 @@ namespace Player
 
         private class Limb
         {
+            public Node nodeA, nodeB;
+            public float length;
+            public LineRenderer armSprite;
             public Limb(Node nodeA, Node nodeB, float length)
             {
                 this.nodeA = nodeA;
                 this.nodeB = nodeB;
                 this.length = length;
             }
-            public Node nodeA, nodeB;
-            public float length;
         }
         [SerializeField] private float _armLength;
+        [SerializeField] private float _armWidth;
+        [SerializeField] private Material _armMaterial;
         [SerializeField] private List<Node> _nodes = new List<Node>();
         private List<Limb> _limbs = new List<Limb>();
 
         private void Awake()
         {
-            for (int i = 0; i < _nodes.Count-1; i++)
+            for (int i = 0; i < _nodes.Count; i++)
             {
-                _limbs.Add(new Limb(_nodes[i], _nodes[i+1], _armLength));
+                _nodes[i].prevPosition = _nodes[i].transform.position;
+                if (i < _nodes.Count-1)
+                {
+                    _limbs.Add(new Limb(_nodes[i], _nodes[i+1], _armLength));
+                    GameObject limb = new GameObject("Arm", typeof(LineRenderer));
+                    limb.transform.SetParent(transform, false);
+                    _limbs[i].armSprite = limb.GetComponent<LineRenderer>();
+                    LineRenderer arm = _limbs[i].armSprite;
+                    arm.startWidth = _armWidth;
+                    arm.endWidth = _armWidth;
+                    arm.material = _armMaterial;
+                    arm.sortingLayerName = "Middleground/Front";
+                    arm.sortingOrder = -1;
+                    arm.positionCount = 2;
+                    arm.SetPosition(0, _nodes[i].transform.position);
+                    arm.SetPosition(1, _nodes[i+1].transform.position);
+                    arm.textureMode = LineTextureMode.Stretch;
+                }
             }
         }
 
@@ -62,8 +82,8 @@ namespace Player
                 if (!n.locked)
                 {
                     Vector2 temp = n.transform.position;
-                    n.transform.position = (Vector2)n.transform.position + ((Vector2)n.transform.position - n.prevPosition);
-                    n.transform.position = (Vector2)n.transform.position + Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime;
+                    n.transform.position += n.transform.position - (Vector3)n.prevPosition;
+                    // n.transform.position += (Vector3)(Vector2.up * Physics2D.gravity * Time.deltaTime * Time.deltaTime);
                     n.prevPosition = temp;
                 }
             }
@@ -75,9 +95,22 @@ namespace Player
                     Vector2 center = (l.nodeA.transform.position + l.nodeB.transform.position) / 2f;
                     Vector2 direction = (l.nodeA.transform.position - l.nodeB.transform.position).normalized;
                     if (!l.nodeA.locked)
+                    {
                         l.nodeA.transform.position = center + l.length * direction / 2f;
+                        l.armSprite.SetPosition(0, l.nodeA.transform.position);
+                    }
+                    else
+                        l.nodeA.prevPosition = l.nodeA.transform.position;
                     if (!l.nodeB.locked)
+                    {
                         l.nodeB.transform.position = center - l.length * direction / 2f;
+                        l.armSprite.SetPosition(1, l.nodeB.transform.position);
+                    }
+                    else
+                        l.nodeB.prevPosition = l.nodeB.transform.position;
+
+                    // Debug.DrawLine(l.nodeA.transform.position, (Vector2)l.nodeA.transform.position + 10f * ((Vector2)l.nodeA.transform.position - l.nodeA.prevPosition).sqrMagnitude * ((Vector2)l.nodeA.transform.position - l.nodeA.prevPosition).normalized, Color.red);
+                    // Debug.DrawLine(l.nodeB.transform.position, (Vector2)l.nodeB.transform.position + 10f * ((Vector2)l.nodeB.transform.position - l.nodeB.prevPosition).sqrMagnitude * ((Vector2)l.nodeB.transform.position - l.nodeB.prevPosition).normalized, Color.blue);
                 }
             }
         }
