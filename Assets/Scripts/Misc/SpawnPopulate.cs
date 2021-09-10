@@ -29,10 +29,7 @@ public class SpawnPopulate : MonoBehaviour
                 _grid.SetGridCell(x, y, true);
             }
         }
-        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Left Hand").transform.position, out int xL, out int yL);
-        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Right Hand").transform.position, out int xR, out int yR);
-        Spawn(_grid.GetWorldPosition(xL, yL));
-        Spawn(_grid.GetWorldPosition(xR, yR));
+        SetMonkeyBranches();
         PopulateLevel();
     }
 
@@ -41,6 +38,30 @@ public class SpawnPopulate : MonoBehaviour
         _spawnedObjects.Add(Instantiate(SpawnObject, new Vector2(position.x + CellSize * 0.5f, position.y + CellSize * 0.5f), Quaternion.identity));
     }
 
+#region Enemy Spawning
+
+#endregion
+
+#region Branch Spawning
+    public void PopulateLevel(Rect grid)
+    {
+        SpawningArea = grid;
+        _grid = new Grid((int)SpawningArea.width, (int)SpawningArea.height, CellSize, SpawningArea.position);
+        for(int x = 0; x < (int)SpawningArea.width; x++)
+        {
+            for (int y = 0; y < (int)SpawningArea.height; y++)
+            {
+                // NOTE: Add this if there are separate lanes/trees
+                //float offset = 0.3f;
+                //Vector2 centerPosition = _grid.GetWorldPosition(x, y) + new Vector2(CellSize, CellSize) * .5f;
+                //Collider2D[] colliders = Physics2D.OverlapBoxAll(centerPosition, new Vector2(CellSize - offset, CellSize - offset), 0, LayerMask.GetMask(GlobalStrings.kTree));
+                _grid.SetGridCell(x, y, true);
+            }
+        }
+        SetMonkeyBranches();
+        PopulateLevel();
+    }
+    
     private void PopulateLevel()
     {
         List<Vector2> currentSpawnList = new List<Vector2>();
@@ -60,6 +81,7 @@ public class SpawnPopulate : MonoBehaviour
                     break;
             }
         }
+        _grid = null;
     }
 
     private List<Vector2> GetValidSpawns(int y)
@@ -73,4 +95,13 @@ public class SpawnPopulate : MonoBehaviour
         }
         return validSpawns;
     }
+
+    private void SetMonkeyBranches()
+    {
+        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Left Hand").transform.position, out int xL, out int yL);
+        _grid.GetXY(GameObject.FindGameObjectWithTag("Monkey Right Hand").transform.position, out int xR, out int yR);
+        Spawn(_grid.GetWorldPosition(xL, yL));
+        Spawn(_grid.GetWorldPosition(xR, yR));
+    }
+#endregion
 }
