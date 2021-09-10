@@ -12,7 +12,10 @@ public class SpawnEvent : MonoBehaviour
     private void Awake()
     {
         for (int i = 0; i < this.transform.childCount; i++)
+        {
+            EnemyCollection.Add(this.transform.GetChild(i).gameObject);
             this.transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)

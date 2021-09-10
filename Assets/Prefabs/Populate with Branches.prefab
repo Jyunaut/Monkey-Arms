@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2555031619984008448}
   - component: {fileID: 2555031619984008451}
   m_Layer: 0
-  m_Name: Level Populator
+  m_Name: Populate with Branches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
