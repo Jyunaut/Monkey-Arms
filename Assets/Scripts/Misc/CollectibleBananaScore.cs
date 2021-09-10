@@ -9,7 +9,8 @@ public class CollectibleBananaScore : MonoBehaviour
 	    if (other.CompareTag("Monkey Body")) {
 		    int currentScore = PlayerPrefs.GetInt("Score", 0);
 		    PlayerPrefs.SetInt("Score", currentScore+1);
-			GetComponent<PlayRandomAudio>().PlayRandomSound();
+			foreach (PlayRandomAudio audio in GetComponents<PlayRandomAudio>())
+				audio.PlayRandomSound();
 		    Invoke("DisableObj", 1f);
 			GetComponent<Collider2D>().enabled = false;
 			GetComponent<SpriteRenderer>().enabled = false;
