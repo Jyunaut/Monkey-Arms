@@ -6,6 +6,7 @@ namespace Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
+    [RequireComponent(typeof(AudioSource))]
     public class Hand : MonoBehaviour
     {
         [SerializeField] private Inputs.Hand _hand;
@@ -19,8 +20,11 @@ namespace Player
         private GameObject _grabbedHandle;
         private bool _locked;
 
+        [SerializeField] private List<AudioClip> _slapSounds = new List<AudioClip>();
+
         public Rigidbody2D Rigidbody2d { get; private set; }
         public Collider2D Collider2d { get; private set; }
+        public AudioSource AudioSource { get; private set; }
 
         private ArmConnection _armConnection;
         private Inputs _inputs;
@@ -31,6 +35,7 @@ namespace Player
         {
             Rigidbody2d = GetComponent<Rigidbody2D>();
             Collider2d = GetComponent<Collider2D>();
+            AudioSource = GetComponent<AudioSource>();
             _armConnection = GetComponentInParent<ArmConnection>();
             _inputs = new Inputs(_hand);
         }
@@ -63,6 +68,9 @@ namespace Player
                 Rigidbody2d.gravityScale = 0f;
                 _isGrabbing = true;
                 _locked = true;
+                AudioSource audio = other.GetComponent<AudioSource>();
+                if (audio) audio.Play();
+                AudioSource.PlayOneShot(_slapSounds[Random.Range(0, _slapSounds.Count)]);
             }            
         }
 

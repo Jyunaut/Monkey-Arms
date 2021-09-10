@@ -9,6 +9,6 @@ public class PlayRandomAudio : MonoBehaviour
 
     public void PlayRandomSound()
     {
-        _audioSource.PlayOneShot(_clips[Random.Range(0, _clips.Count-1)]);
+        _audioSource.PlayOneShot(_clips[Random.Range(0, _clips.Count)]);
     }
 }
