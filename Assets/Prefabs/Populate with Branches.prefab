@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2555031619984008448}
   - component: {fileID: 2555031619984008451}
   m_Layer: 0
-  m_Name: Level Populator
+  m_Name: Populate with Branches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,11 +46,11 @@ MonoBehaviour:
   <SpawnObject>k__BackingField: {fileID: 648637588757105207, guid: 3840337a17bfc3440a91b44a9793e70f, type: 3}
   <SpawningArea>k__BackingField:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 19
+    x: -6
+    y: -4
+    width: 24
     height: 79
-  <DistanceBetweenObjects>k__BackingField: 1
   <CellSize>k__BackingField: 0.5
-  <MINFrequency>k__BackingField: 6
-  <MAXFrequency>k__BackingField: 3
+  <DistanceBetweenObjects>k__BackingField: 3.4
+  <MINFrequency>k__BackingField: 4
+  <MAXFrequency>k__BackingField: 1
